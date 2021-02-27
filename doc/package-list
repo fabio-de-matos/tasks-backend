@@ -1,0 +1,5 @@
+br.ce.wcaquino.taskbackend
+br.ce.wcaquino.taskbackend.controller
+br.ce.wcaquino.taskbackend.model
+br.ce.wcaquino.taskbackend.repo
+br.ce.wcaquino.taskbackend.utils

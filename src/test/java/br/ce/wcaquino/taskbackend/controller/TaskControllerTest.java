@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import br.ce.wcaquino.taskbackend.model.Task;
 import br.ce.wcaquino.taskbackend.repo.TaskRepo;
@@ -17,12 +16,17 @@ import br.ce.wcaquino.taskbackend.utils.ValidationException;
 
 public class TaskControllerTest {
 	
-	// O objeto:
-	// "@Autowired
-	// private TaskRepo todoRepo;"
-	// será substituido pelo objeto abaixo
-	// Isto é mock. A simulação de objeto. Isso permite que o teste não precise do Spring e um BD para a execução dos testes.
-	// Isso é importante para deixar o teste mais rápido e isolado de dependêcias externas;
+	private static final String MENSAGEM = "Não deveria passar por aqui";
+	
+	/**
+	 O objeto:
+	 "@Autowired
+	 private TaskRepo todoRepo;"
+	 será substituido pelo objeto abaixo
+	 Isto é mock. A simulação de objeto. Isso permite que o teste não precise do Spring e um BD para a execução dos testes.
+	 Isso é importante para deixar o teste mais rápido e isolado de dependêcias externas
+	 */
+
 	@Mock
 	private TaskRepo taskRepo;
 	
@@ -33,7 +37,6 @@ public class TaskControllerTest {
 	@Before
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
-
 	}
 
 	@Test
@@ -42,7 +45,7 @@ public class TaskControllerTest {
 		todo.setDueDate(LocalDate.now());
 		try {
 			controller.save(todo);
-			Assert.fail("Não deveria passar por aqui");
+			Assert.fail(MENSAGEM);
 		} catch (ValidationException e) {
 			Assert.assertEquals("Fill the task description", e.getMessage());
 		}
@@ -53,10 +56,9 @@ public class TaskControllerTest {
 	public void naoDeveSalvarTarefaSemData() {
 		Task todo = new Task();
 		todo.setTask("Descrição");
-//		todo.setDueDate(LocalDate.now());
 		try {
 			controller.save(todo);
-			Assert.fail("Não deveria passar por aqui");
+			Assert.fail(MENSAGEM);
 		} catch (ValidationException e) {
 			Assert.assertEquals("Fill the due date", e.getMessage());
 		}
@@ -69,7 +71,7 @@ public class TaskControllerTest {
 		todo.setDueDate(LocalDate.of(1970, 04, 18));
 		try {
 			controller.save(todo);
-			Assert.fail("Não deveria passar por aqui");
+			Assert.fail(MENSAGEM);
 		} catch (ValidationException e) {
 			Assert.assertEquals("Due date must not be in past", e.getMessage());
 		}
