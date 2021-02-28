@@ -49,7 +49,6 @@ public class TaskControllerTest {
 		} catch (ValidationException e) {
 			Assert.assertEquals("Fill the task description", e.getMessage());
 		}
-
 	}
 
 	@Test
